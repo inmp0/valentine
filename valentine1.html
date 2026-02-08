@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для любимой зайки ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title {
+            color: #ff69b4;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .bunny {
+            font-size: 5em;
+            margin: 20px 0;
+            animation: hop 1s infinite;
+        }
+
+        @keyframes hop {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .question {
+            font-size: 1.8em;
+            color: #e63946;
+            margin: 30px 0 40px 0;
+            font-weight: bold;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+            height: 150px;
+            position: relative;
+        }
+
+        .button-yes {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            position: absolute;
+            left: 25%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .button-yes:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 6px 25px rgba(245, 87, 108, 0.6);
+        }
+
+        .button-no {
+            background: linear-gradient(135deg, #434343 0%, #000000 100%);
+            color: #888;
+            border: 2px solid #333;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            position: absolute;
+            transition: all 0.2s ease;
+            font-weight: bold;
+            left: 75%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .button-no:hover {
+            transform: scale(0.9);
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 50px;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: bounceIn 0.6s ease;
+            position: relative;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-title {
+            font-size: 2.5em;
+            color: #e63946;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .celebration-emoji {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: spin 2s infinite;
+        }
+
+        @keyframes spin {
+            0%, 100% {
+                transform: rotate(-10deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
+        }
+
+        .cats-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            font-size: 3em;
+        }
+
+        .cat {
+            display: inline-block;
+            animation: bounce 1s infinite;
+        }
+
+        .cat:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .cat:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .cat:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .cat:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        .close-button:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .love-message {
+            margin-top: 30px;
+            font-size: 1.8em;
+            color: #e63946;
+            font-weight: bold;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(230, 57, 70, 0.6);
+            }
+        }
+
+        .reveal-button {
+            margin-top: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .reveal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .hidden-text {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #333;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .hidden-text.show {
+            display: block;
+        }
+
+        /* Грустное окно */
+        .sad-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .sad-modal.show {
+            display: flex;
+        }
+
+        .sad-content {
+            text-align: center;
+            padding: 60px;
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .sad-title {
+            font-size: 5em;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-weight: bold;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-10px);
+            }
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        .crying-cats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .sad-gif {
+            max-width: 400px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Дождь */
+        .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(to bottom, transparent, rgba(174, 214, 241, 0.6));
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Окно с шуткой */
+        .prank-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .prank-modal.show {
+            display: flex;
+        }
+
+        .prank-content {
+            text-align: center;
+            padding: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .prank-title {
+            font-size: 2.5em;
+            color: #e63946;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .laughing-cats-grid {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .prank-gif {
+            max-width: 500px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .photos-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            border: 5px solid white;
+        }
+
+        .photo:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f5576c;
+            animation: confettiFall 3s linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(600px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 2em;
+            color: rgba(255, 105, 180, 0.6);
+            animation: float 6s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <div class="container">
+        <h1 class="title">Для любимой зайки 🐰</h1>
+        
+        <div class="bunny">💕</div>
+        
+        <div class="question">
+            Ты будешь моей Валентинкой?
+        </div>
+        
+        <div class="buttons-container">
+            <button class="button-yes" onclick="sayYes()">
+                Да! ❤️
+            </button>
+            
+            <button class="button-no" id="noButton" onmouseover="runAway(event)" onclick="sayNo()">
+                Нет 😢
+            </button>
+        </div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="celebrationModal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">✕</button>
+            <div class="celebration-emoji">🤭</div>
+            <h2 class="modal-title">Урааааа я счастлив!</h2>
+            
+            <div class="cats-container">
+                <span class="cat">😸</span>
+                <span class="cat">😻</span>
+                <span class="cat">😺</span>
+            </div>
+            
+            <div class="photos-container">
+                <div class="photo">
+                    <img src="C:\Users\bulki\OneDrive\Рабочий стол\14февраля\photo1.jpg" alt="Фото 1">
+                </div>
+                <div class="photo">
+                    <img src="C:\Users\bulki\OneDrive\Рабочий стол\14февраля\photo2.jpg" alt="Фото 2">
+                </div>
+            </div>
+            
+            <div class="love-message">
+                Люблю тебя моя вселенная ❤️
+            </div>
+            
+            <button class="reveal-button" onclick="revealText()">Нажми 💌</button>
+            
+            <div class="hidden-text" id="hiddenText">
+                Каждый момент с тобой - это настоящее счастье. 
+                Да, порой нам с тобой непросто, но твоя сложность мне дороже любой лёгкости с другими. 
+                Ты та любовь, о которой я всегда мечтал. 
+                Ты всё, что мне когда-либо было нужно. 
+                Спасибо, что ты есть в моей жизни! 💕
+            </div>
+        </div>
+    </div>
+
+    <!-- Грустное окно -->
+    <div class="sad-modal" id="sadModal">
+        <div class="rain" id="rain"></div>
+        <div class="sad-content">
+            <h1 class="sad-title">Правда?</h1>
+            <div class="crying-cats">
+                <img src="sad-cat.gif" alt="Грустный котик" class="sad-gif">
+            </div>
+        </div>
+    </div>
+
+    <!-- Окно с шуткой -->
+    <div class="prank-modal" id="prankModal">
+        <div class="prank-content">
+            <h1 class="prank-title">Ха! Попалась!</h1>
+            <h2 style="font-size: 1.5em; color: #333; margin-bottom: 20px;">
+                Думала, я дам тебе такой вариант ответа?
+            </h2>
+            <div class="laughing-cats-grid">
+                <img src="laughing-cat.gif" alt="Смеющийся котик" class="prank-gif">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Создание плавающих сердечек
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.getElementById('floatingHearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+
+        // Создаём сердечки каждые 500мс
+        setInterval(createFloatingHeart, 500);
+
+        // Кнопка "Нет" убегает от курсора
+        function runAway(event) {
+            const button = document.getElementById('noButton');
+            const container = document.querySelector('.buttons-container');
+            
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = button.getBoundingClientRect();
+            
+            // Генерируем случайную позицию
+            const maxX = containerRect.width - buttonRect.width;
+            const maxY = containerRect.height - buttonRect.height;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            button.style.left = randomX + 'px';
+            button.style.top = randomY + 'px';
+        }
+
+        // Ответ "Да"
+        function sayYes() {
+            document.getElementById('celebrationModal').classList.add('show');
+            createConfetti();
+        }
+
+        // Закрыть модальное окно
+        function closeModal() {
+            document.getElementById('celebrationModal').classList.remove('show');
+        }
+
+        // Показать скрытый текст
+        function revealText() {
+            document.getElementById('hiddenText').classList.add('show');
+        }
+
+        // Ответ "Нет" - запуск грустного окна
+        function sayNo() {
+            const sadModal = document.getElementById('sadModal');
+            sadModal.classList.add('show');
+            createRain();
+            
+            // Через 5 секунд показать окно с шуткой
+            setTimeout(() => {
+                sadModal.classList.remove('show');
+                document.getElementById('prankModal').classList.add('show');
+                
+                // Через 10 секунд вернуться к началу
+                setTimeout(() => {
+                    document.getElementById('prankModal').classList.remove('show');
+                }, 5000);
+            }, 5000);
+        }
+
+        // Создание дождя
+        function createRain() {
+            const rain = document.getElementById('rain');
+            rain.innerHTML = ''; // Очищаем предыдущий дождь
+            
+            for (let i = 0; i < 100; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'raindrop';
+                drop.style.left = Math.random() * 100 + '%';
+                drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+                drop.style.animationDelay = Math.random() * 2 + 's';
+                rain.appendChild(drop);
+            }
+        }
+
+        // Создание конфетти
+        function createConfetti() {
+            const colors = ['#f5576c', '#f093fb', '#ffd700', '#ff69b4', '#00ff00'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
