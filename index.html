@@ -525,6 +525,56 @@
                 opacity: 0;
             }
         }
+
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.95);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 250px;
+            z-index: 5000;
+            text-align: center;
+        }
+
+    .player-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #e63946;
+        }
+
+    .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+    .controls button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+    .controls button:hover {
+            transform: scale(1.1);
+        }
+
+    .volume-control {
+            margin-top: 10px;
+        }
+
+    .volume-control input {
+            width: 100%;
+        }
+
     </style>
 </head>
 <body>
@@ -565,10 +615,10 @@
             
             <div class="photos-container">
                 <div class="photo">
-                    <img src="photo1.jpg">
+                    <img src="photo1.jpg" alt="Фото 1">
                 </div>
                 <div class="photo">
-                    <img src="photo2.jpg">
+                    <img src="photo2.jpg" alt="Фото 2">
                 </div>
             </div>
             
@@ -609,6 +659,25 @@
             <div class="laughing-cats-grid">
                 <img src="laughing-cat.gif" alt="Смеющийся котик" class="prank-gif">
             </div>
+        </div>
+    </div>
+
+
+    <!-- Музыкальный плеер -->
+    <div class="music-player">
+        <div class="player-title">🎵 Наша музыка</div>
+    
+        <audio id="audioPlayer"></audio>
+    
+        <div class="controls">
+            <button onclick="prevTrack()">⏮</button>
+            <button onclick="togglePlay()" id="playBtn">▶</button>
+            <button onclick="nextTrack()">⏭</button>
+        </div>
+
+        <div class="volume-control">
+            🔊
+            <input type="range" min="0" max="1" step="0.01" value="0.7" onchange="setVolume(this.value)">
         </div>
     </div>
 
@@ -716,6 +785,51 @@
                 }, i * 50);
             }
         }
+        const tracks = [
+            "music1.mp3",
+            "music2.mp3",
+            "music3.mp3"
+        ]; 
+        // 👆 ЗАМЕНИ на свои файлы
+
+        let currentTrack = 0;
+        const audio = document.getElementById("audioPlayer");
+        const playBtn = document.getElementById("playBtn");
+
+        audio.src = tracks[currentTrack];
+        audio.volume = 0.7;
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerHTML = "⏸";
+            } else {
+                audio.pause();
+                playBtn.innerHTML = "▶";
+            }
+        }
+
+        function nextTrack() {
+            currentTrack = (currentTrack + 1) % tracks.length;
+            audio.src = tracks[currentTrack];
+            audio.play();
+            playBtn.innerHTML = "⏸";
+        }
+
+        function prevTrack() {
+            currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+            audio.src = tracks[currentTrack];
+            audio.play();
+            playBtn.innerHTML = "⏸";
+        }
+
+        function setVolume(value) {
+            audio.volume = value;
+        }
+
+        // Автопереход к следующему треку
+        audio.addEventListener("ended", nextTrack);
+
     </script>
 </body>
 </html>
